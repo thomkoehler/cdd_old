@@ -5,12 +5,14 @@ build-type: Simple
 license: AllRightsReserved
 license-file: ""
 data-dir: ""
-
+ 
 executable cdd
-    build-depends: base -any, bytestring -any, HStringTemplate -any, template-haskell -any
+    build-depends: base -any, bytestring -any, HStringTemplate -any,
+                   template-haskell -any
     main-is: Main.hs
     buildable: True
     hs-source-dirs: src
-    other-modules: Language StringTemplateQQ Template.StructCppHeader
-
-
+    other-modules: Language StringTemplateHelper StringTemplateQQ
+                   Template.StructCppHeader
+ 
+ 

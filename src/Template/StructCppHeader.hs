@@ -11,20 +11,25 @@ import Text.StringTemplate
 import Data.ByteString
 
 import Language
+import StringTemplateHelper
 
 ----------------------------------------------------------------------------------------------------
 
 showTemplate :: Struct String -> String
 showTemplate struct =
    let
-      vars = [("className", stName struct)]
+      vars =
+         [
+            ("name", AttrBox (stName struct)),
+            ("attribs", AttrBox (stAttributes struct))
+         ]
    in
       toString [stemplate|
 
-class $className$
+class $name$
 {
 
-}; class $className$
+}; class $name$
 
 |]
 
