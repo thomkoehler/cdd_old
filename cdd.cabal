@@ -7,10 +7,10 @@ license-file: ""
 data-dir: ""
 
 executable cdd
-    build-depends: base -any, bytestring -any, HStringTemplate -any
+    build-depends: base -any, bytestring -any, HStringTemplate -any, template-haskell -any
     main-is: Main.hs
     buildable: True
     hs-source-dirs: src
-    other-modules: Language Template.StructCppHeader
+    other-modules: Language StringTemplateQQ Template.StructCppHeader
 
 
