@@ -13,14 +13,16 @@ import Language
 
 ----------------------------------------------------------------------------------------------------
 
+ns = Ns { nsPath = ["level0", "level1"]}
+
 str0 = Struct
    {
       stName = "Class",
-      stAttributes = [Attribute TInt "intMember", Attribute TString "strMember"]
+      stAttrs = [Attr TInt "intMember", Attr TString "strMember"]
    }
 
 
-main = hPutStr stdout $ renderStructDecl str0
+main = hPutStr stdout $ renderStructDecl ns str0
 
 
 ----------------------------------------------------------------------------------------------------
