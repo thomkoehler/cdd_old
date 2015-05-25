@@ -8,7 +8,7 @@ module Main where
 import Data.Text.IO(hPutStr)
 import System.IO(stdout)
 
-import Template.StructCppHeader
+import Template.StructCpp
 import Language
 
 ----------------------------------------------------------------------------------------------------
@@ -22,7 +22,9 @@ str0 = Struct
    }
 
 
-main = hPutStr stdout $ renderStructDecl ns str0
+main = do
+   hPutStr stdout $ renderStructDecl str0
+   hPutStr stdout $ renderStructImpl str0
 
 
 ----------------------------------------------------------------------------------------------------

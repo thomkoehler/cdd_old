@@ -11,6 +11,6 @@ executable cdd
     main-is: Main.hs
     buildable: True
     hs-source-dirs: src
-    other-modules: CppHelper Helper Language Template.StructCppHeader
+    other-modules: CppHelper Helper Language Template.StructCpp
  
  
