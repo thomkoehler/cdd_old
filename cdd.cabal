@@ -5,12 +5,13 @@ build-type: Simple
 license: AllRightsReserved
 license-file: ""
 data-dir: ""
- 
+
 executable cdd
-    build-depends: base -any, text -any, shakespeare -any
+    build-depends: base -any, text -any, shakespeare -any, parsec -any, mtl -any
     main-is: Main.hs
     buildable: True
     hs-source-dirs: src
-    other-modules: CppHelper Helper Language Template.StructCpp
- 
- 
+    other-modules: CddLexer CppHelper Helper Language CddParser
+                   Template.StructCpp
+
+

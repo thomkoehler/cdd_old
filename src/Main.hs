@@ -10,6 +10,7 @@ import System.IO(stdout)
 
 import Template.StructCpp
 import Language
+import CddParser
 
 ----------------------------------------------------------------------------------------------------
 
