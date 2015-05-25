@@ -1,37 +1,31 @@
 
-{-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE QuasiQuotes, OverloadedStrings #-}
 
 ----------------------------------------------------------------------------------------------------
 
-module Template.StructCppHeader(showTemplate) where
+module Template.StructCppHeader(genStruct) where
 
 
-import StringTemplateQQ
-import Text.StringTemplate
-import Data.ByteString
+import Text.Shakespeare.Text
+import Data.Text
 
 import Language
-import StringTemplateHelper
+import CppHelper
 
 ----------------------------------------------------------------------------------------------------
 
-showTemplate :: Struct String -> String
-showTemplate struct =
-   let
-      vars =
-         [
-            ("name", AttrBox (stName struct)),
-            ("attribs", AttrBox (stAttributes struct))
-         ]
-   in
-      toString [stemplate|
+genStruct :: Struct -> Text
+genStruct struct = [st|
 
-class $name$
+class #{name}
 {
-
-}; class $name$
+}
+; // class #{name}
 
 |]
+
+   where
+      name = stName struct
 
 ----------------------------------------------------------------------------------------------------
 

@@ -1,23 +1,23 @@
 
 ----------------------------------------------------------------------------------------------------
 
+{-# LANGUAGE OverloadedStrings #-}
+
 module Main where
 
 import Template.StructCppHeader
 import Language
-
-import StringTemplateQQ
 
 ----------------------------------------------------------------------------------------------------
 
 str0 = Struct
    {
       stName = "Class",
-      stAttributes = []
+      stAttributes = [Attribute TInt "intMember", Attribute TString "strMember"]
    }
 
 
 main = do
-   putStrLn $ show $ showTemplate str0
+   putStrLn $ show $ genStruct str0
 
 ----------------------------------------------------------------------------------------------------

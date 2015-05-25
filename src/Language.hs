@@ -3,27 +3,26 @@
 module Language where
 
 
+import Data.Text
+
 ----------------------------------------------------------------------------------------------------
 
 
-data Type n = TString | TInt | TInt64
+data Type = TString | TInt | TInt64
 
 
-data Attribute n = Attribute
+data Attribute = Attribute
    {
-      attrType :: Type n,
-      attrName :: n
+      attrType :: Type,
+      attrName :: Text
    }
 
 
-
-data Struct n = Struct
+data Struct = Struct
    {
-      stName :: n,
-      stAttributes :: [Attribute n]
+      stName :: Text,
+      stAttributes :: [Attribute]
    }
-
-
 
 ----------------------------------------------------------------------------------------------------
 
