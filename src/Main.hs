@@ -5,6 +5,9 @@
 
 module Main where
 
+import Data.Text.IO(hPutStr)
+import System.IO(stdout)
+
 import Template.StructCppHeader
 import Language
 
@@ -17,7 +20,7 @@ str0 = Struct
    }
 
 
-main = do
-   putStrLn $ show $ genStruct str0
+main = hPutStr stdout $ renderStructDecl str0
+
 
 ----------------------------------------------------------------------------------------------------

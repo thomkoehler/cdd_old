@@ -3,7 +3,7 @@
 
 ----------------------------------------------------------------------------------------------------
 
-module Template.StructCppHeader(genStruct) where
+module Template.StructCppHeader(renderStructDecl) where
 
 
 import Text.Shakespeare.Text
@@ -14,11 +14,12 @@ import CppHelper
 
 ----------------------------------------------------------------------------------------------------
 
-genStruct :: Struct -> Text
-genStruct struct = [st|
+renderStructDecl :: Struct -> Text
+renderStructDecl struct = [st|
 
 class #{name}
 {
+private:
 }
 ; // class #{name}
 

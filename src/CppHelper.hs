@@ -1,23 +1,25 @@
 
 ---------------------------------------------------------------------------------------------------
 
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings, QuasiQuotes #-}
 
 module CppHelper where
 
+import Text.Shakespeare.Text
 import Data.Text
 
 import Language
 
 ---------------------------------------------------------------------------------------------------
 
-showType :: Type -> Text
-showType TString = "std::string"
-showType TInt = "int"
-showType TInt64 = "_int64"
+renderType :: Type -> Text
+renderType TString = "std::string"
+renderType TInt = "int"
+renderType TInt64 = "_int64"
 
-showAttributeDecl :: Attribute -> Text
-showAttributeDecl (Attribute t n) = showType t `append` " _" `append` n `append` ";"
+
+renderAttributeDecl :: Attribute -> Text
+renderAttributeDecl (Attribute t n) = [st|#{renderType t} _#{n};|]
 
 ---------------------------------------------------------------------------------------------------
 
