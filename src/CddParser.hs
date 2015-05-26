@@ -23,6 +23,7 @@ attrDecl :: IParser Attr
 attrDecl = do
    t <- simpleType
    n <- identifier
+   reserved ";"
    return $ Attr t (T.pack(n))
    <?> "Attr Decl"
 
@@ -40,9 +41,11 @@ simpleType = choice
 
 struct :: IParser Struct
 struct = do
+   spaces
    reserved "struct"
    name <- identifier
-   return $ Struct (T.pack(name)) []
+   attrs <- braces $ many1 attrDecl
+   return $ Struct (T.pack(name)) attrs
    <?> "Struct"
 
 ----------------------------------------------------------------------------------------------------

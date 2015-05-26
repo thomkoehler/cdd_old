@@ -5,7 +5,8 @@
 
 module Main where
 
-import Data.Text.IO(hPutStr)
+import Prelude hiding(readFile)
+import Data.Text.IO(hPutStr, readFile)
 import System.IO(stdout)
 
 import Template.StructCpp
@@ -24,8 +25,10 @@ str0 = Struct
 
 
 main = do
-   hPutStr stdout $ renderStructDecl str0
-   hPutStr stdout $ renderStructImpl str0
+   text <- readFile "Test/test0.cdd"
+   let str = parse "Test/test0.cdd" text
+   hPutStr stdout $ renderStructDecl str
+   hPutStr stdout $ renderStructImpl str
 
 
 ----------------------------------------------------------------------------------------------------

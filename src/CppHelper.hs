@@ -42,6 +42,7 @@ renderType :: Type -> T.Text
 renderType TString = "std::string"
 renderType TInt = "int"
 renderType TInt64 = "_int64"
+renderType TDouble = "double"
 
 
 renderAttrDecl :: Attr -> T.Text

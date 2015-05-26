@@ -1,0 +1,6 @@
+
+struct Class
+{
+  int intAttr;
+  double doubleAttr;
+}

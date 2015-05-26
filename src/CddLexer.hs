@@ -3,7 +3,11 @@
 
 module CddLexer
 (
-   IParser, reserved, parens, identifier
+   IParser,
+   reserved,
+   parens,
+   braces,
+   identifier
 )
 where
 
@@ -36,7 +40,8 @@ languageDef = P.LanguageDef
             "int",
             "int64",
             "string",
-            "double"
+            "double",
+            ";"
          ],
       P.opStart = P.opLetter languageDef,
       P.opLetter = oneOf "",
@@ -57,6 +62,9 @@ reserved = P.reserved lexer
 
 parens :: IParser a -> IParser a
 parens = P.parens lexer
+
+braces :: IParser a -> IParser a
+braces = P.braces lexer
 
 ----------------------------------------------------------------------------------------------------
 
