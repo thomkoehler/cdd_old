@@ -27,6 +27,7 @@ public:
 private:
 #{unlines' 3 attrDecls}
 }; // class #{name}
+
 |]
    where
       name = stName struct

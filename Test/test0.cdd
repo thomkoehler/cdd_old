@@ -1,6 +1,21 @@
 
-struct Class
+module Test(CINEMA.ProcessMonitor)
+
+struct Class0
 {
-  int intAttr;
-  double doubleAttr;
+  int intAttr0;
+  double doubleAttr0;
+}
+
+struct Class1
+{
+  int intAttr1;
+  double doubleAttr1;
+}
+
+struct Person
+{
+  string firstName;
+  string lastName;
+  int age;
 }

@@ -5,6 +5,7 @@ module CddLexer
 (
    IParser,
    reserved,
+   symbol,
    parens,
    braces,
    identifier
@@ -15,7 +16,6 @@ where
 import qualified Data.Text as T
 import qualified Text.Parsec.Token as P
 import Text.Parsec.Language
-import Text.Parsec.Text
 import Text.Parsec
 import Control.Monad.Identity
 
@@ -41,7 +41,8 @@ languageDef = P.LanguageDef
             "int64",
             "string",
             "double",
-            ";"
+            ";",
+            ","
          ],
       P.opStart = P.opLetter languageDef,
       P.opLetter = oneOf "",
@@ -53,12 +54,14 @@ languageDef = P.LanguageDef
 lexer :: P.GenTokenParser T.Text () Identity
 lexer = P.makeTokenParser languageDef
 
-
 identifier :: IParser String
 identifier = P.identifier lexer
 
 reserved :: String -> IParser ()
 reserved = P.reserved lexer
+
+symbol :: String -> IParser String
+symbol = P.symbol lexer
 
 parens :: IParser a -> IParser a
 parens = P.parens lexer

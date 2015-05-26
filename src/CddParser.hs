@@ -6,15 +6,14 @@ module CddParser(parse) where
 import qualified Data.Text as T
 import Text.Parsec.Pos
 import Text.Parsec hiding(parse)
-import Text.ParserCombinators.Parsec.Combinator
 
 import CddLexer
 import Language
 
 ----------------------------------------------------------------------------------------------------
 
-parse :: SourceName -> T.Text -> Struct
-parse srcName input = case runParser struct () srcName input of
+parse :: SourceName -> T.Text -> Module
+parse srcName input = case runParser pModule () srcName input of
    Right res -> res
    Left err -> error $ show err
 
@@ -23,8 +22,8 @@ attrDecl :: IParser Attr
 attrDecl = do
    t <- simpleType
    n <- identifier
-   reserved ";"
-   return $ Attr t (T.pack n)
+   _ <- symbol ";"
+   return $ Attr t $ T.pack n
    <?> "Attr Decl"
 
 
@@ -47,6 +46,24 @@ struct = do
    attrs <- braces $ many1 attrDecl
    return $ Struct (T.pack name) attrs
    <?> "Struct"
+
+
+namespace :: IParser Ns
+namespace = do
+   ns <- identifier `sepBy` (symbol ".")
+   return $ Ns $ map T.pack ns
+
+
+pModule :: IParser Module
+pModule = do
+   spaces
+   reserved "module"
+   name <- identifier
+   ns <- option globalNs (parens namespace)
+   structs <- many struct
+   eof
+   return $ Module (T.pack name) ns structs
+   <?> "Modules"
 
 ----------------------------------------------------------------------------------------------------
 

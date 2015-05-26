@@ -10,7 +10,8 @@ module CppHelper
    renderAttrParam,
    renderAttrParams,
    renderBeginNs,
-   renderEndNs
+   renderEndNs,
+   renderNs
 ) where
 
 import Text.Shakespeare.Text
@@ -25,13 +26,13 @@ renderNs (Ns p) = T.intercalate "::" p
 
 
 renderBeginNs :: Ns -> T.Text
-renderBeginNs ns@(Ns p) =
+renderBeginNs ns@(Ns ps) =
    let
       step p = T.concat ["namespace ", p, "{ "]
    in
       if isGlobalNs ns
          then T.empty
-         else T.unlines $ map step p
+         else T.unlines $ map step ps
 
 
 renderEndNs :: Ns -> T.Text
@@ -43,6 +44,7 @@ renderType TString = "std::string"
 renderType TInt = "int"
 renderType TInt64 = "__int64"
 renderType TDouble = "double"
+renderType (Type ns name) = renderNs ns `T.append` name
 
 
 renderAttrDecl :: Attr -> T.Text
