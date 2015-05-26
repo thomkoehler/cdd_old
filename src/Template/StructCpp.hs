@@ -21,10 +21,12 @@ class #{name}
 {
 public:
    #{name}(#{attrParams});
+   #{name}(CINEMA::AttrObject& obj);
+   void marshal(CINEMA::AttrObject& obj) const;
 
 private:
 #{unlines' 3 attrDecls}
-};
+}; // class #{name}
 |]
    where
       name = stName struct

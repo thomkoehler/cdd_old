@@ -41,7 +41,7 @@ renderEndNs (Ns p) = T.replicate (length p) "}"
 renderType :: Type -> T.Text
 renderType TString = "std::string"
 renderType TInt = "int"
-renderType TInt64 = "_int64"
+renderType TInt64 = "__int64"
 renderType TDouble = "double"
 
 

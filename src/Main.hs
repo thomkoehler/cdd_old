@@ -10,12 +10,13 @@ import Data.Text.IO(hPutStr, readFile)
 import System.IO(stdout)
 
 import Template.StructCpp
+import  Template.HeaderCpp
 import Language
 import CddParser
 
 ----------------------------------------------------------------------------------------------------
 
-ns = Ns { nsPath = ["level0", "level1"]}
+ns = Ns { nsPath = ["CINEMA", "ProcessMonitor"]}
 
 str0 = Struct
    {
@@ -27,7 +28,7 @@ str0 = Struct
 main = do
    text <- readFile "Test/test0.cdd"
    let str = parse "Test/test0.cdd" text
-   hPutStr stdout $ renderStructDecl str
+   hPutStr stdout $ renderHeader "Class.h" ns $ renderStructDecl str
    hPutStr stdout $ renderStructImpl str
 
 
