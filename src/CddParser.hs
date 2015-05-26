@@ -24,7 +24,7 @@ attrDecl = do
    t <- simpleType
    n <- identifier
    reserved ";"
-   return $ Attr t (T.pack(n))
+   return $ Attr t (T.pack n)
    <?> "Attr Decl"
 
 
@@ -45,7 +45,7 @@ struct = do
    reserved "struct"
    name <- identifier
    attrs <- braces $ many1 attrDecl
-   return $ Struct (T.pack(name)) attrs
+   return $ Struct (T.pack name) attrs
    <?> "Struct"
 
 ----------------------------------------------------------------------------------------------------

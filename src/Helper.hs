@@ -12,7 +12,7 @@ unlines' :: Int -> [T.Text] -> T.Text
 unlines' n items =
    let
       indent = T.replicate n $ T.pack " "
-      step text = T.append indent text
+      step = T.append indent
    in
       T.unlines $ map step items
 

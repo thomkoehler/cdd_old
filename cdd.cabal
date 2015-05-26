@@ -3,7 +3,7 @@ version: 0.0.1
 cabal-version: >=1.2
 build-type: Simple
 license: AllRightsReserved
-license-file: ""
+license-file: "LICENSE"
 data-dir: ""
 
 executable cdd
@@ -12,6 +12,6 @@ executable cdd
     buildable: True
     hs-source-dirs: src
     other-modules: CddLexer CppHelper Helper Language CddParser
-                   Template.StructCpp
+                   Template.StructCpp, Template.HeaderCpp
 
 
