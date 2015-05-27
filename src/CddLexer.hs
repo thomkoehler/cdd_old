@@ -41,6 +41,7 @@ languageDef = P.LanguageDef
             "int64",
             "string",
             "double",
+            "bool",
             ";",
             ","
          ],

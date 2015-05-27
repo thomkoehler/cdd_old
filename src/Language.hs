@@ -15,6 +15,7 @@ data Type
    | TInt
    | TInt64
    | TDouble
+   | TBool
    deriving Show
 
 
@@ -41,11 +42,27 @@ data Struct = Struct
    deriving Show
 
 
+data Method = Method
+   {
+      metName :: Text,
+      metRetType :: Type,
+      metParams :: [(Type, Text)]
+   }
+   deriving Show
+
+data Interface = Interface
+   {
+      infcName :: Text,
+      infcMethods :: [Method]
+   }
+   deriving Show
+
 data Module = Module
    {
       modName :: Text,
       modNs :: Ns,
-      modStructDefs :: [Struct]
+      modStructDefs :: [Struct],
+      modInterfaces :: [Interface]
    }
    deriving Show
 

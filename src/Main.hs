@@ -17,5 +17,6 @@ main = do
    text <- TIO.readFile "Test/test0.cdd"
    let modul = parse "Test/test0.cdd" text
    genFiles "out" modul
+   putStrLn "ready"
 
 ----------------------------------------------------------------------------------------------------

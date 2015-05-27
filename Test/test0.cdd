@@ -1,6 +1,7 @@
 
 module Test(CINEMA.ProcessMonitor)
 
+
 struct Class0
 {
   int intAttr0;
@@ -18,4 +19,11 @@ struct Person
   string firstName;
   string lastName;
   int age;
+}
+
+interface I0
+{
+  int foo0();
+  string foo1(int p0, double p1, string p2);
+  bool isEnabled();
 }

@@ -9,6 +9,7 @@ import System.FilePath
 import Language
 import Template.HeaderCpp
 import Template.StructCpp
+import Template.ClientInterfaceCpp
 
 ----------------------------------------------------------------------------------------------------
 
@@ -21,12 +22,15 @@ genFiles baseDir modul = do
 --TODO genClientFiles :: FilePath -> Module -> IO ()
 genClientFiles :: FilePath -> Module -> IO ()
 genClientFiles baseDir modul = do
-   let baseFileName = T.unpack (modName modul) ++ "Client"
-   let headerFileName = baseDir </> baseFileName ++ ".h"
-   let structs = T.concat $ map renderStructDecl $ modStructDefs modul
-   let header = renderHeader baseFileName modul structs
+   let
+      baseFileName = T.unpack (modName modul) ++ "Client"
+      headerFileName = baseDir </> baseFileName ++ ".h"
+      structs = T.concat $ map renderStructDecl $ modStructDefs modul
+      interfaces = T.concat $ map renderClientInterface $ modInterfaces modul
+      content = structs `T.append` interfaces
+      header = renderHeader baseFileName modul content
 
-   putStrLn $ "Create file '" ++ headerFileName ++ "'..."
+   putStrLn $ "Create file '" ++ headerFileName ++ "' ..."
    TIO.writeFile headerFileName header
 
    let cppFileName = baseDir </> baseFileName ++ ".cpp"
