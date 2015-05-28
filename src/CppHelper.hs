@@ -11,7 +11,8 @@ module CppHelper
    renderParams,
    renderBeginNs,
    renderEndNs,
-   renderNs
+   renderNs,
+   attrToTypeFunction
 ) where
 
 import Text.Shakespeare.Text
@@ -45,6 +46,16 @@ renderType TInt64 = "__int64"
 renderType TDouble = "double"
 renderType TString = "std::string"
 renderType (Type ns name) = renderNs ns `T.append` name
+
+
+--TODO attrToTypeFunction :: Type -> T.Text
+attrToTypeFunction :: Type -> T.Text
+attrToTypeFunction TBool = "Bool()"
+attrToTypeFunction TInt = "Int()"
+attrToTypeFunction TInt64 = "Int64()"
+attrToTypeFunction TDouble = "Double()"
+attrToTypeFunction TString = "String()"
+attrToTypeFunction _ = error "AttrToTypeFunction not implemented yet."
 
 
 renderAttrDecl :: Attr -> T.Text

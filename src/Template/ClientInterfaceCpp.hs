@@ -18,6 +18,8 @@ renderClientInterface interface = [st|
 class I#{name}
 {
 public:
+   virtual I#{name}::~I#{name}(){}
+
 #{unlines' 3 methods}
 }; // class I#{name}
 

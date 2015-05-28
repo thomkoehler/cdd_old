@@ -12,7 +12,16 @@ executable cdd
     buildable: True
     hs-source-dirs: src
     ghc-options: -Wall -rtsopts
-    other-modules: CddLexer CppHelper Helper Language CddParser CppGenerator
-                   Template.StructCpp, Template.HeaderCpp, Template.ClientInterfaceCpp
+    other-modules:
+        CddLexer
+        CppHelper
+        Helper
+        Language
+        CddParser
+        CppGenerator
+        Template.CppCpp
+        Template.StructCpp,
+        Template.HeaderCpp,
+        Template.ClientInterfaceCpp
 
 

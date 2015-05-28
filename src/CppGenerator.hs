@@ -10,6 +10,7 @@ import Language
 import Template.HeaderCpp
 import Template.StructCpp
 import Template.ClientInterfaceCpp
+import Template.CppCpp
 
 ----------------------------------------------------------------------------------------------------
 
@@ -33,7 +34,14 @@ genClientFiles baseDir modul = do
    putStrLn $ "Create file '" ++ headerFileName ++ "' ..."
    TIO.writeFile headerFileName header
 
-   let cppFileName = baseDir </> baseFileName ++ ".cpp"
+   let
+      cppFileName = baseDir </> baseFileName ++ ".cpp"
+      structs = T.concat $ map renderStructImpl $ modStructDefs modul
+      cpp = renderCpp baseFileName modul structs
+
+   putStrLn $ "Create file '" ++ cppFileName ++ "' ..."
+   TIO.writeFile cppFileName cpp
+
    return ()
 
 
