@@ -94,7 +94,7 @@ renderObjectConstr struct = [st|
 |]
    where
       name = stName struct
-      objectConstrAttrs = unlines' 3 $ map renderObjectConstrAttr $ stAttrs struct
+      objectConstrAttrs = unlinesIntercalate 3 "," $ map renderObjectConstrAttr $ stAttrs struct
 
 
 renderObjectConstrAttr :: Attr -> T.Text

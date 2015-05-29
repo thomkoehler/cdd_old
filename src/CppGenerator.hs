@@ -45,4 +45,9 @@ genClientFiles baseDir modul = do
    return ()
 
 
+genProxyFile :: FilePath -> Module -> Interface -> IO()
+genProxyFile baseDir modul interface = do
+
+
+
 ----------------------------------------------------------------------------------------------------

@@ -29,16 +29,11 @@ unlines' n items =
 
 unlinesIntercalate :: Int -> T.Text -> [T.Text] -> T.Text
 unlinesIntercalate _ _ [] = T.empty
-unlinesIntercalate n i [text] = T.concat [spaces n, text, i]
+unlinesIntercalate n _ [text] = spaces n `T.append` text
+unlinesIntercalate n i ts = T.concat[unlines' n $ map fun (init ts), spaces n, last ts]
+   where
+      fun txt = txt `T.append` i
 
-{--
-unlinesIntercalate i n items =
-   let
-      indent = T.replicate n $ T.pack " "
-      step = T.append indent
-   in
-      T.unlines $ map step items
---}
 
 camelCaseToUnderscore :: T.Text -> T.Text
 camelCaseToUnderscore = T.concatMap step
@@ -56,5 +51,3 @@ underscore :: T.Text
 underscore = T.pack "_"
 
 ---------------------------------------------------------------------------------------------------
-
-
