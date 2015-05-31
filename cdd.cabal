@@ -7,7 +7,14 @@ license-file: "LICENSE"
 data-dir: ""
 
 executable cdd
-    build-depends: base -any, text -any, shakespeare -any, parsec -any, mtl -any, filepath -any
+    build-depends:
+      base -any,
+      text -any,
+      shakespeare -any,
+      parsec -any,
+      mtl -any,
+      filepath -any,
+      transformers -any
     main-is: Main.hs
     buildable: True
     hs-source-dirs: src

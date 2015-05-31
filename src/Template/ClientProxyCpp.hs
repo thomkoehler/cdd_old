@@ -4,13 +4,32 @@
 
 module Template.ClientProxyCpp where
 
+import Text.Shakespeare.Text
+import qualified Data.Text as T
+
+import Language
+
 ----------------------------------------------------------------------------------------------------
 
-renderClientProxy :: Interface -> T.Text
-renderClientProxy interface = [st|
-#include"#{name}Proxy"
+renderClientProxy :: Module -> Interface -> T.Text
+renderClientProxy modul interface = [st|
+#include "#{modName modul}.h"
+
+namespace
+{
+
+class #{infcName interface}Proxy : public I#{infcName interface}
+{
+public:
+   #{infcName interface}Proxy()
+   {
+   }
+
+};
+
+} // namespace
+
 |]
-   where
-      name = infcName interface
+
 
 ----------------------------------------------------------------------------------------------------

@@ -15,8 +15,9 @@ where
 
 import qualified Data.Text as T
 import qualified Text.Parsec.Token as P
-import Text.Parsec.Language
 import Text.Parsec
+import Text.Parsec.Text()
+import Text.Parsec.Language
 import Control.Monad.Identity
 
 ----------------------------------------------------------------------------------------------------

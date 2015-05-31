@@ -5,12 +5,14 @@ module CppGenerator(genFiles) where
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
 import System.FilePath
+import Control.Monad(forM_)
 
 import Language
 import Template.HeaderCpp
 import Template.StructCpp
 import Template.ClientInterfaceCpp
 import Template.CppCpp
+import Template.ClientProxyCpp
 
 ----------------------------------------------------------------------------------------------------
 
@@ -42,11 +44,23 @@ genClientFiles baseDir modul = do
    putStrLn $ "Create file '" ++ cppFileName ++ "' ..."
    TIO.writeFile cppFileName cpp
 
+   forM_ (modInterfaces modul) $ genProxyFile baseDir modul
+
    return ()
 
 
-genProxyFile :: FilePath -> Module -> Interface -> IO()
+genProxyFile :: FilePath -> Module -> Interface -> IO ()
 genProxyFile baseDir modul interface = do
+   let
+      baseFileName = T.unpack (infcName interface) ++ "Proxy"
+      cppFileName = baseDir </> baseFileName ++ ".cpp"
+      cpp = renderClientProxy modul interface
+
+   putStrLn $ "Create file '" ++ cppFileName ++ "' ..."
+   TIO.writeFile cppFileName cpp
+
+
+
 
 
 
