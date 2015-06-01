@@ -26,4 +26,5 @@ interface I0
   int foo0();
   string foo1(int p0, double p1, string p2);
   bool isEnabled();
+  void printMessage(string message);
 }

@@ -41,7 +41,8 @@ simpleType = choice
       reserved "int65" >> return TInt64,
       reserved "string" >> return TString,
       reserved "double" >> return TDouble,
-      reserved "bool" >> return TBool
+      reserved "bool" >> return TBool,
+      reserved "void" >> return TVoid
    ]
    <?> "Simple Type"
 

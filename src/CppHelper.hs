@@ -12,13 +12,15 @@ module CppHelper
    renderBeginNs,
    renderEndNs,
    renderNs,
-   attrToTypeFunction
+   attrToTypeFunction,
+   renderMethodId
 ) where
 
 import Text.Shakespeare.Text
 import qualified Data.Text as T
 
 import Language
+import Helper
 
 ---------------------------------------------------------------------------------------------------
 
@@ -44,6 +46,7 @@ renderType TBool = "bool"
 renderType TInt = "int"
 renderType TInt64 = "__int64"
 renderType TDouble = "double"
+renderType TVoid = "void"
 renderType TString = "std::string"
 renderType (Type ns name) = renderNs ns `T.append` name
 
@@ -55,6 +58,7 @@ attrToTypeFunction TInt = "Int()"
 attrToTypeFunction TInt64 = "Int64()"
 attrToTypeFunction TDouble = "Double()"
 attrToTypeFunction TString = "String()"
+attrToTypeFunction TVoid = "Cannot get a value from void."
 attrToTypeFunction _ = error "AttrToTypeFunction not implemented yet."
 
 
@@ -71,6 +75,10 @@ renderParam (t, n) =
 
 renderParams :: [(Type, T.Text)] -> T.Text
 renderParams attrs = T.intercalate ", " $ map renderParam attrs
+
+
+renderMethodId :: Method -> T.Text
+renderMethodId method = "MID_" `T.append` camelCaseToUpperUnderscore (metName method)
 
 ---------------------------------------------------------------------------------------------------
 

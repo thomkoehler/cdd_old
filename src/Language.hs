@@ -11,12 +11,18 @@ import Data.Text
 
 data Type
    = Type { tNs :: Ns, tName :: Text }
+   | TVoid
    | TString
    | TInt
    | TInt64
    | TDouble
    | TBool
    deriving Show
+
+
+isVoid :: Type -> Bool
+isVoid TVoid = True
+isVoid _ = False
 
 
 data Ns = Ns
