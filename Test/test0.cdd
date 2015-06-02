@@ -4,27 +4,28 @@ module Test(CINEMA.ProcessMonitor)
 
 struct Class0
 {
-  int intAttr0;
-  double doubleAttr0;
+  Int intAttr0;
+  Double doubleAttr0;
 }
 
 struct Class1
 {
-  int intAttr1;
-  double doubleAttr1;
+  Int intAttr1;
+  Double doubleAttr1;
 }
 
 struct Person
 {
-  string firstName;
-  string lastName;
-  int age;
+  String firstName;
+  String lastName;
+  Int age;
 }
 
 interface I0
 {
-  int foo0();
-  string foo1(int p0, double p1, string p2);
-  bool isEnabled();
-  void printMessage(string message);
+  Int foo0();
+  String foo1(Int p0, Double p1, String p2, Int64 p3, Int p4);
+  Bool isEnabled();
+  Void printMessage(String message);
+  Void add(GetFilter gf, CndFilter cnd, Object obj);
 }

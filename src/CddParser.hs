@@ -20,7 +20,7 @@ parse srcName input = case runParser pModule () srcName input of
 
 param :: IParser (Type, T.Text)
 param = do
-   t <- simpleType
+   t <- typ
    n <- identifier
    return (t, T.pack n)
    <?> "Param"
@@ -34,17 +34,31 @@ attrDecl = do
    <?> "Attr Decl"
 
 
-simpleType :: IParser Type
-simpleType = choice
+typeAndVoid :: IParser Type
+typeAndVoid = (reserved "Void" >> return TVoid) <|> typ <?> "Type"
+
+typ :: IParser Type
+typ = choice
    [
-      reserved "int" >> return TInt,
-      reserved "int65" >> return TInt64,
-      reserved "string" >> return TString,
-      reserved "double" >> return TDouble,
-      reserved "bool" >> return TBool,
-      reserved "void" >> return TVoid
+      reserved "Int" >> return TInt,
+      reserved "Int64" >> return TInt64,
+      reserved "String" >> return TString,
+      reserved "Double" >> return TDouble,
+      reserved "Bool" >> return TBool,
+      reserved "Object" >> return TObject,
+      reserved "GetFilter" >> return TGetFilter,
+      reserved "CndFilter" >> return TCndFilter,
+      complexType
    ]
-   <?> "Simple Type"
+   <?> "Type"
+
+
+complexType :: IParser Type
+complexType = do
+   ns <- option globalNs namespace
+   _ <- symbol "."
+   name <- identifier
+   return $ Type ns $ T.pack name
 
 
 struct :: IParser Struct
@@ -65,7 +79,7 @@ namespace = do
 
 method :: IParser Method
 method = do
-   rt <- simpleType
+   rt <- typeAndVoid
    name <- identifier
    params <- parens $ param `sepBy` symbol ","
    _ <- symbol ";"

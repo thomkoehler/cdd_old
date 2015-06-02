@@ -48,6 +48,9 @@ renderType TInt64 = "__int64"
 renderType TDouble = "double"
 renderType TVoid = "void"
 renderType TString = "std::string"
+renderType TObject = "CINEMA::AttrObject"
+renderType TGetFilter = "CINEMA::AttrGetFilter"
+renderType TCndFilter = "CINEMA::AttrCndFilter"
 renderType (Type ns name) = renderNs ns `T.append` name
 
 
@@ -58,6 +61,9 @@ attrToTypeFunction TInt = "Int()"
 attrToTypeFunction TInt64 = "Int64()"
 attrToTypeFunction TDouble = "Double()"
 attrToTypeFunction TString = "String()"
+attrToTypeFunction TObject = "Object()"
+attrToTypeFunction TGetFilter = "GetFilter()"
+attrToTypeFunction TCndFilter = "CndFilter()"
 attrToTypeFunction TVoid = "Cannot get a value from void."
 attrToTypeFunction _ = error "AttrToTypeFunction not implemented yet."
 

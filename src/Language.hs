@@ -17,12 +17,10 @@ data Type
    | TInt64
    | TDouble
    | TBool
+   | TObject
+   | TGetFilter
+   | TCndFilter
    deriving Show
-
-
-isVoid :: Type -> Bool
-isVoid TVoid = True
-isVoid _ = False
 
 
 data Ns = Ns
@@ -73,9 +71,17 @@ data Module = Module
    deriving Show
 
 
+isVoid :: Type -> Bool
+isVoid TVoid = True
+isVoid _ = False
+
+
 isSimpleType :: Type -> Bool
 isSimpleType Type {..} = False
 isSimpleType TString = False
+isSimpleType TObject = False
+isSimpleType TGetFilter = False
+isSimpleType TCndFilter = False
 isSimpleType _ = True
 
 
