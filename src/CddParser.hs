@@ -64,7 +64,7 @@ complexType = choice
 complexTypeWithNs :: IParser Type
 complexTypeWithNs = do
    ns <- namespace
-   symbol "."
+   _ <- symbol "."
    name <- identifier
    return $ Type ns $ T.pack name
 

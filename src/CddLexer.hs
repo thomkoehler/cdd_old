@@ -46,9 +46,7 @@ languageDef = P.LanguageDef
             "Void",
             "Object",
             "GetFilter",
-            "CndFilter",
-            ";",
-            ","
+            "CndFilter"
          ],
       P.opStart = P.opLetter languageDef,
       P.opLetter = oneOf "",
