@@ -9,6 +9,7 @@ import qualified Data.Text as T
 
 import Language
 import CppHelper
+import Helper
 
 ----------------------------------------------------------------------------------------------------
 
@@ -49,9 +50,10 @@ renderProxyMethod method = [st|
 virtual #{retType} #{name}(#{params})
 {
    CINEMA::AttrObject params(_processMonitorId, CINEMA::to_attr(#{renderMethodId method}));
+#{renderAssignParams method}
 
    _disp->call(params);
-   #{renderProxyMethodReturn method}
+#{renderProxyMethodReturn method}
 }
 |]
    where
@@ -63,8 +65,22 @@ virtual #{retType} #{name}(#{params})
 renderProxyMethodReturn :: Method -> T.Text
 renderProxyMethodReturn method = if isVoid retType
    then T.empty
-   else [st|return params[P_RETURN].#{attrToTypeFunction retType};|]
+   else [st|   return params[P_RETURN].#{attrToTypeFunction retType};|]
       where
          retType = metRetType method
+
+
+renderAssignParams :: Method -> T.Text
+renderAssignParams method = unlinesIndent 3 $ map renderAssignParam $ zip [1..] $ metParams method
+
+
+renderAssignParam :: (Int, (Type, T.Text)) -> T.Text
+renderAssignParam (pos, (typ, name)) = if isCustomType typ
+   then [st|
+   params[P_#{pos}] = new CINEMA::AttrObject;
+   #{name}.marshal(params[P_#{pos}].Object());
+|]
+
+   else [st|params[P_#{pos}] = #{name};|]
 
 ----------------------------------------------------------------------------------------------------

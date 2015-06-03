@@ -3,7 +3,7 @@
 
 module Helper
 (
-   unlines',
+   unlinesIndent,
    camelCaseToUnderscore,
    camelCaseToUpperUnderscore,
    unlinesIntercalate
@@ -19,18 +19,18 @@ import Data.Char(isUpper, toUpper)
 spaces :: Int -> T.Text
 spaces n = T.replicate n $ T.pack " "
 
-unlines' :: Int -> [T.Text] -> T.Text
-unlines' n items =
+unlinesIndent :: Int -> [T.Text] -> T.Text
+unlinesIndent n items =
    let
-      step = T.append $ spaces n
+      makeIndent = T.append $ spaces n
    in
-      T.unlines $ map step items
+      T.stripEnd . T.unlines . map makeIndent . map T.strip $ items
 
 
 unlinesIntercalate :: Int -> T.Text -> [T.Text] -> T.Text
 unlinesIntercalate _ _ [] = T.empty
 unlinesIntercalate n _ [text] = spaces n `T.append` text
-unlinesIntercalate n i ts = T.concat[unlines' n $ map fun (init ts), spaces n, last ts]
+unlinesIntercalate n i ts = T.concat[unlinesIndent n $ map fun (init ts), spaces n, last ts]
    where
       fun txt = txt `T.append` i
 

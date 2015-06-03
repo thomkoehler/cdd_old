@@ -26,7 +26,7 @@ public:
 #{getMethods}
 private:
 #{renderMarshallParameterIds struct}
-#{unlines' 3 attrDecls}
+#{unlinesIndent 3 attrDecls}
 }; // class #{name}
 
 |]
@@ -39,7 +39,7 @@ private:
 
 renderMarshallParameterIds :: Struct -> T.Text
 renderMarshallParameterIds struct =
-   unlines' 3 $ ["enum MarshalParameterId", "{"] ++ parameterIds ++ ["};"]
+   unlinesIndent 3 $ ["enum MarshalParameterId", "{"] ++ parameterIds ++ ["};"]
    where
       parameterIds = map renderMarshallParameterId (zip [1..] (stAttrs struct))
 
@@ -114,7 +114,7 @@ void #{structName}::marshal(CINEMA::AttrObject &obj) const
 |]
    where
       structName = stName struct
-      marshalAttrs = unlines' 3 $ map renderMarshalAttr $ stAttrs struct
+      marshalAttrs = unlinesIndent 3 $ map renderMarshalAttr $ stAttrs struct
 
 
 renderMarshalAttr :: Attr -> T.Text

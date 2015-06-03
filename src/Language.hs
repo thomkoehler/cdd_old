@@ -76,6 +76,11 @@ isVoid TVoid = True
 isVoid _ = False
 
 
+isCustomType :: Type -> Bool
+isCustomType Type {..} = True
+isCustomType _ = False
+
+
 isSimpleType :: Type -> Bool
 isSimpleType Type {..} = False
 isSimpleType TString = False
