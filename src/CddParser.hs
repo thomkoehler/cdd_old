@@ -6,7 +6,6 @@ module CddParser(parse) where
 import qualified Data.Text as T
 import Text.Parsec.Pos
 import Text.Parsec hiding(parse)
-import Control.Monad(liftM)
 
 import CddLexer
 import Language
@@ -55,18 +54,13 @@ typ = choice
 
 
 complexType :: IParser Type
-complexType = choice
-   [
---TODO      complexTypeWithNs,
-      liftM (Type globalNs . T.pack) identifier
-   ]
-
-complexTypeWithNs :: IParser Type
-complexTypeWithNs = do
-   ns <- namespace
-   _ <- symbol "."
-   name <- identifier
-   return $ Type ns $ T.pack name
+complexType = do
+   names <- identifier `sepBy` symbol "."
+   let txtNames = map T.pack names
+   case txtNames of
+      [] -> fail "Type expected"
+      [name] -> return $ Type globalNs name
+      _ ->  return $ Type (Ns (init txtNames)) $ last txtNames
 
 
 struct :: IParser Struct
