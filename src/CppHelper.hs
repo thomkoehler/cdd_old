@@ -51,7 +51,7 @@ renderType TString = "std::string"
 renderType TObject = "CINEMA::AttrObject"
 renderType TGetFilter = "CINEMA::AttrGetFilter"
 renderType TCndFilter = "CINEMA::AttrCndFilter"
-renderType (Type ns name) = renderNs ns `T.append` name
+renderType (Type ns name) = T.concat [renderNs ns, "::", name]
 
 
 --TODO attrToTypeFunction :: Type -> T.Text

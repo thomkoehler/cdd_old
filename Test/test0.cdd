@@ -28,5 +28,5 @@ interface I0
   Bool isEnabled();
   Void printMessage(String message);
   Void add(GetFilter gf, CndFilter cnd, Object obj);
-  Void addPersion(Int id, Person person);
+  Void addPersion(Int id, CINEMA.ProcessMonitor.Person person);
 }
