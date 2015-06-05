@@ -14,6 +14,7 @@ import Template.ClientInterfaceCpp
 import Template.CppCpp
 import Template.ClientProxyCpp
 import Template.MethodIdsHeader
+import Template.ServerCpp
 
 ----------------------------------------------------------------------------------------------------
 
@@ -49,6 +50,8 @@ genFiles baseDir modul = do
    putStrLn $ "Create file '" ++ headerFileName ++ "' ..."
    TIO.writeFile headerFileName header
 
+   forM_ (modInterfaces modul) $ genServerCpp baseDir modul
+
    return ()
 
 
@@ -63,8 +66,15 @@ genProxyFile baseDir modul interface = do
    TIO.writeFile cppFileName cpp
 
 
+genServerCpp :: FilePath -> Module -> Interface -> IO ()
+genServerCpp baseDir modul interface = do
+   let
+         baseFileName = T.unpack (infcName interface) ++ "Server"
+         cppFileName = baseDir </> baseFileName ++ ".cpp"
+         cpp = renderServerCpp modul interface
 
-
+   putStrLn $ "Create file '" ++ cppFileName ++ "' ..."
+   TIO.writeFile cppFileName cpp
 
 
 ----------------------------------------------------------------------------------------------------

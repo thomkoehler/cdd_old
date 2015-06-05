@@ -31,3 +31,8 @@ interface I0
   CINEMA.ProcessMonitor.Person addPerson1(Int id, CINEMA.ProcessMonitor.Person person);
   Person addPerson2(Int id, Person person);
 }
+
+interface I1
+{
+  Void helloWorld(String prefix, String postfix);
+}

@@ -32,5 +32,6 @@ executable cdd
         Template.ClientInterfaceCpp
         Template.ClientProxyCpp
         Template.MethodIdsHeader
+        Template.ServerCpp
 
 
