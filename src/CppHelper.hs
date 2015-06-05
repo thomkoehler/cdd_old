@@ -13,11 +13,13 @@ module CppHelper
    renderEndNs,
    renderNs,
    attrToTypeFunction,
-   renderMethodId
+   renderMethodId,
+   headerDefine
 ) where
 
 import Text.Shakespeare.Text
 import qualified Data.Text as T
+import Data.Char(toUpper)
 
 import Language
 import Helper
@@ -51,7 +53,9 @@ renderType TString = "std::string"
 renderType TObject = "CINEMA::AttrObject"
 renderType TGetFilter = "CINEMA::AttrGetFilter"
 renderType TCndFilter = "CINEMA::AttrCndFilter"
-renderType (Type ns name) = T.concat [renderNs ns, "::", name]
+renderType (Type ns name)
+   | isGlobalNs ns = name
+   | otherwise = T.concat [renderNs ns, "::", name]
 
 
 --TODO attrToTypeFunction :: Type -> T.Text
@@ -85,6 +89,10 @@ renderParams attrs = T.intercalate ", " $ map renderParam attrs
 
 renderMethodId :: Method -> T.Text
 renderMethodId method = "MID_" `T.append` camelCaseToUpperUnderscore (metName method)
+
+headerDefine :: FilePath -> Ns -> T.Text
+headerDefine fileBaseName ns =
+   T.map toUpper $ T.concat [T.intercalate "_" (nsPath ns), "_", T.pack fileBaseName]
 
 ---------------------------------------------------------------------------------------------------
 

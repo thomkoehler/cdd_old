@@ -15,12 +15,17 @@ import Language
 
 renderClientInterface :: Interface -> T.Text
 renderClientInterface interface = [st|
+class I#{name};
+typedef boost::shared_ptr<I#{name}> #{name}_ap;
+
 class I#{name}
 {
 public:
    virtual I#{name}::~I#{name}(){}
 
 #{unlinesIndent 3 methods}
+
+   static #{name}_ap connect(const char* host, unsigned short port, int timeout);
 }; // class I#{name}
 
 |]

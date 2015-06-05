@@ -13,18 +13,13 @@ import Template.StructCpp
 import Template.ClientInterfaceCpp
 import Template.CppCpp
 import Template.ClientProxyCpp
+import Template.MethodIdsHeader
 
 ----------------------------------------------------------------------------------------------------
 
 --TODO genFiles :: FilePath -> Module -> IO ()
 genFiles :: FilePath -> Module -> IO ()
 genFiles baseDir modul = do
-   genClientFiles baseDir modul
-
-
---TODO genClientFiles :: FilePath -> Module -> IO ()
-genClientFiles :: FilePath -> Module -> IO ()
-genClientFiles baseDir modul = do
    let
       baseFileName = T.unpack (modName modul) ++ "Client"
       headerFileName = baseDir </> baseFileName ++ ".h"
@@ -45,6 +40,14 @@ genClientFiles baseDir modul = do
    TIO.writeFile cppFileName cpp
 
    forM_ (modInterfaces modul) $ genProxyFile baseDir modul
+
+   let
+      baseFileName = T.unpack (modName modul) ++ "MethodIds"
+      headerFileName = baseDir </> baseFileName ++ ".h"
+      header = renderMethodIdsHeader baseFileName modul
+
+   putStrLn $ "Create file '" ++ headerFileName ++ "' ..."
+   TIO.writeFile headerFileName header
 
    return ()
 

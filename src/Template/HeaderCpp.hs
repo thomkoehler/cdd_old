@@ -6,7 +6,6 @@ module Template.HeaderCpp(renderHeader) where
 
 import Text.Shakespeare.Text
 import qualified Data.Text as T
-import Data.Char(toUpper)
 
 import Language
 import CppHelper
@@ -18,6 +17,8 @@ renderHeader fileBaseName modul content = [st|
 #ifndef #{headerDef}
 #define #{headerDef}
 
+#include "boost/shared_ptr.hpp"
+
 #{renderBeginNs ns}
 #{content}
 #{renderEndNs ns}
@@ -26,8 +27,7 @@ renderHeader fileBaseName modul content = [st|
 |]
    where
       ns = modNs modul
-      path =  nsPath ns
-      headerDef = T.map toUpper $ T.concat [T.intercalate "_" path, "_", T.pack fileBaseName]
+      headerDef = headerDefine fileBaseName ns
 
 ----------------------------------------------------------------------------------------------------
 

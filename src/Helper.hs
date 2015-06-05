@@ -4,6 +4,7 @@
 module Helper
 (
    unlinesIndent,
+   unlinesIndent',
    camelCaseToUnderscore,
    camelCaseToUpperUnderscore,
    unlinesIntercalate
@@ -25,6 +26,14 @@ unlinesIndent n items =
       makeIndent = T.append $ spaces n
    in
       T.stripEnd . T.unlines . map makeIndent . map T.strip $ items
+
+
+unlinesIndent' :: Int -> [T.Text] -> T.Text
+unlinesIndent' n items =
+   let
+      makeIndent = T.append $ spaces n
+   in
+      T.stripEnd . T.unlines . map makeIndent $ items
 
 
 unlinesIntercalate :: Int -> T.Text -> [T.Text] -> T.Text

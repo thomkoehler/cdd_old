@@ -26,6 +26,7 @@ public:
 #{getMethods}
 private:
 #{renderMarshallParameterIds struct}
+
 #{unlinesIndent 3 attrDecls}
 }; // class #{name}
 
@@ -39,7 +40,7 @@ private:
 
 renderMarshallParameterIds :: Struct -> T.Text
 renderMarshallParameterIds struct =
-   unlinesIndent 3 $ ["enum MarshalParameterId", "{"] ++ parameterIds ++ ["};"]
+   unlinesIndent' 3 $ ["enum MarshalParameterId", "{"] ++ parameterIds ++ ["};"]
    where
       parameterIds = map renderMarshallParameterId (zip [1..] (stAttrs struct))
 
